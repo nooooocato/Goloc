@@ -21,15 +21,21 @@ let EARTH_RADIUS = 6378137;
 
 divConsole.log = (text,lineNumber="") => {
     divConsole.innerHTML += "["+window.Date().slice(16,24)+"] "+"[ line: "+lineNumber+" ]" + String(text +"</br>");
-    divConsole.scrollBy(0,100);
+    if (divConsole.scrollBy !== undefined) {
+      divConsole.scrollBy(0,100);
+    }
 };
 divConsole.error = (text) => {
   divConsole.innerHTML += "<em>["+window.Date().slice(16,24)+"] "+ String(text+"</em></br>");
-  divConsole.scrollBy(0,100);
+  if (divConsole.scrollBy !== undefined) {
+    divConsole.scrollBy(0,100);
+  }
 };
 divConsole.tag = (text) => {
   divConsole.innerHTML += "<color-tag>["+window.Date().slice(16,24)+"] "+ String(text+"</color-tag></br>");
-  divConsole.scrollBy(0,100);
+  if (divConsole.scrollBy !== undefined) {
+    divConsole.scrollBy(0,100);
+  }
 };
 
 
@@ -61,6 +67,11 @@ if ("geolocation" in navigator) {
   navigator.geolocation.getCurrentPosition(success, error, options);
   navigator.geolocation.watchPosition((pos) => {
     let crd = pos.coords;
+    divConsole.log("");
+    divConsole.log('你的位置 :');
+    divConsole.log('纬度 : ' + crd.latitude);
+    divConsole.log('经度 : ' + crd.longitude);
+    divConsole.log('误差 : ±' + crd.accuracy + ' 米.');
     let laDistance = GetDistance(baselat,baselot,crd.latitude,baselot);
     let lnDistance = GetDistance(baselat,baselot,baselat,crd.longitude);
     // let laDistance = getLineDistance(baselat,baselot,crd.latitude,baselot);
@@ -124,7 +135,23 @@ function getLineDistance(lat1,lng1,lat2,lng2) {
   return Math.sqrt(2*Math.pow(EARTH_RADIUS,2)*
   (1-Math.cos(radlng1)*Math.cos(radlng2)*Math.cos(a)-Math.sin(radlng1)*Math.sin(radlng2)))
 }
-console.log(GetDistance(baselat,baselot,sglat,sglot));
-console.log(styleDistance(baseleft,basetop,sgleft,sgtop));
-console.log(styleDistance(baseleft,basetop,sgleft,sgtop)/GetDistance(baselat,baselot,sglat,sglot));
-console.log(styleDistance(baseleft,basetop,sgleft,sgtop)/getLineDistance(baselat,baselot,sglat,sglot));
+
+function reTry(params) {
+  navigator.geolocation.watchPosition((pos) => {
+    let crd = pos.coords;
+    let laDistance = GetDistance(baselat,baselot,crd.latitude,baselot);
+    let lnDistance = GetDistance(baselat,baselot,baselat,crd.longitude);
+    // let laDistance = getLineDistance(baselat,baselot,crd.latitude,baselot);
+    // let lnDistance = getLineDistance(baselat,baselot,baselat,crd.longitude);
+    let lnDirection = Math.sign(crd.longitude-baselot);
+    let laDirection = Math.sign(crd.latitude-baselat);
+    let thisLeft = basetop + (lnDistance*lnDirection*rmRate - 260);
+    let thisTop = baseleft - (laDistance*laDirection*rmRate - 250);
+    myDot.style.left = thisLeft+"px";
+    myDot.style.top = thisTop+"px";
+  }, error, options);
+}
+// console.log(GetDistance(baselat,baselot,sglat,sglot));
+// console.log(styleDistance(baseleft,basetop,sgleft,sgtop));
+// console.log(styleDistance(baseleft,basetop,sgleft,sgtop)/GetDistance(baselat,baselot,sglat,sglot));
+// console.log(styleDistance(baseleft,basetop,sgleft,sgtop)/getLineDistance(baselat,baselot,sglat,sglot));
