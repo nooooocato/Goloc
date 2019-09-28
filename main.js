@@ -4,6 +4,7 @@ let newGemDot = document.querySelector('#newGemDot');
 let southGatDot = document.querySelector('#southGatDot');
 let myDot = document.querySelector('#myDot');
 let rmRate = 1.1400682183346926;
+let lmRate = 1.0595483446253406;
 let baselat = newGemDot.getAttribute("data-lat");
 let baselot = newGemDot.getAttribute("data-lot");
 let basetop = 1915;
@@ -62,10 +63,12 @@ if ("geolocation" in navigator) {
     let crd = pos.coords;
     let laDistance = GetDistance(baselat,baselot,crd.latitude,baselot);
     let lnDistance = GetDistance(baselat,baselot,baselat,crd.longitude);
+    // let laDistance = getLineDistance(baselat,baselot,crd.latitude,baselot);
+    // let lnDistance = getLineDistance(baselat,baselot,baselat,crd.longitude);
     let lnDirection = Math.sign(crd.longitude-baselot);
     let laDirection = Math.sign(crd.latitude-baselat);
-    let thisLeft = basetop + (lnDistance*lnDirection*rmRate-240);
-    let thisTop = baseleft - (laDistance*laDirection*rmRate-240);
+    let thisLeft = basetop + (lnDistance*lnDirection*rmRate - 260);
+    let thisTop = baseleft - (laDistance*laDirection*rmRate - 250);
     myDot.style.left = thisLeft+"px";
     myDot.style.top = thisTop+"px";
   }, error, options);
@@ -124,3 +127,4 @@ function getLineDistance(lat1,lng1,lat2,lng2) {
 console.log(GetDistance(baselat,baselot,sglat,sglot));
 console.log(styleDistance(baseleft,basetop,sgleft,sgtop));
 console.log(styleDistance(baseleft,basetop,sgleft,sgtop)/GetDistance(baselat,baselot,sglat,sglot));
+console.log(styleDistance(baseleft,basetop,sgleft,sgtop)/getLineDistance(baselat,baselot,sglat,sglot));
