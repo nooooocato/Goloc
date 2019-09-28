@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Gotest</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        em{
+            color: red;
+        }
+        button{
+            width: 33%;
+            height: 8vh;
+        }
+        color-tag{
+            color: white;
+            background-color: coral;
+        }
+        #tagName{
+            width: 97%;
+            height: 8vh;
+            margin-top: 8vh;
+            font-size: 8vmin;
+            padding-left: 2vw;
+        }
+        #console{
+            position: absolute;
+            overflow: auto;
+            height: 80%;
+            width: 100%;
+            margin-bottom: 5%;
+            /* display: none; */
+            z-index: 100;
+        }
+        #map{
+            position: absolute;
+            top: -21px;
+            left: -19px;
+            width: 2000px;
+        }
+        #newGemDot{
+            position: absolute;
+            height: 30px;
+            width: 30px;
+            border-radius: 30px;
+            background-color: cornflowerblue;
+            left: 1656px;
+            top: 1915px;
+        }
+        #southGatDot{
+            position: absolute;
+            height: 30px;
+            width: 30px;
+            border-radius: 30px;
+            background-color: rgb(237, 100, 100);
+            left: 748px;
+            top: 2215px;
+        }
+        #myDot{
+            position: absolute;
+            height: 30px;
+            width: 30px;
+            border-radius: 30px;
+            background-color: rgb(255, 230, 0);
+            left: 1656px;
+            top: 1915px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="console"></div>
+    <img id="map" src="/XTUmap.png" alt="">
+    <div id="newGemDot" data-lat = "27.88293763" data-lot = "112.8657118"></div>
+    <div id="southGatDot" data-lat = "27.8804592" data-lot = "112.8576616"></div>
+    <div id="myDot"></div>
+</body>
+<script src='main.js'></script>
+
+</html>
