@@ -64,8 +64,8 @@ if ("geolocation" in navigator) {
     let lnDistance = GetDistance(baselat,baselot,baselat,crd.longitude);
     let lnDirection = Math.sign(crd.longitude-baselot);
     let laDirection = Math.sign(crd.latitude-baselat);
-    let thisLeft = baseleft - (laDistance*laDirection*1.9);
-    let thisTop = basetop + (lnDistance*lnDirection*0.72);
+    let thisLeft = basetop + (lnDistance*lnDirection*1.5);
+    let thisTop = baseleft - (laDistance*laDirection*0.52);
     myDot.style.left = thisLeft+"px";
     myDot.style.top = thisTop+"px";
   }, error, options);
