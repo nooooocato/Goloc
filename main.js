@@ -2,6 +2,7 @@ let watcherID = null;
 let divConsole = document.querySelector('#console');
 let newGemDot = document.querySelector('#newGemDot');
 let southGatDot = document.querySelector('#southGatDot');
+let map = document.querySelector('#map');
 let myDot = document.querySelector('#myDot');
 let rmRate = 1.1400682183346926;
 let lmRate = 1.0595483446253406;
@@ -16,7 +17,47 @@ let sglot = southGatDot.getAttribute("data-lot");
 let latcha;
 let lotcha;
 let EARTH_RADIUS = 6378137;
+let myquaternion = [];
+let thisLeft = 0;
+let thisTop = 0;
 
+// 初始化方向传感器
+const OrientationSensoroptions = { frequency: 60, referenceFrame: 'device' };
+const sensor = new AbsoluteOrientationSensor(OrientationSensoroptions);
+Promise.all([navigator.permissions.query({ name: "accelerometer" }),
+             navigator.permissions.query({ name: "magnetometer" }),
+             navigator.permissions.query({ name: "gyroscope" }),
+             navigator.permissions.query({ name: "geolocation" })])
+       .then(results => {
+         if (results.every(result => result.state === "granted")) {
+           sensor.start();
+         } else {
+           console.log("No permissions to use AbsoluteOrientationSensor.");
+         }
+});
+sensor.addEventListener('reading', () => {
+  // model is a Three.js object instantiated elsewhere.
+  // model.quaternion.fromArray(sensor.quaternion).inverse();
+  let q = sensor.quaternion;
+  /*
+  q[0] = w; q[1] = x; q[2] = y; q[3] = z;
+  */
+  // let Psi = Math.atan2(2*(q[0]*q[3]+q[1]*q[2]),1-2*(Math.pow(q[2],2)+Math.pow(q[3],2)));
+  // let Theta = Math.asin(2*(q[0]*q[2]+q[3]*q[1]));
+  let Phi = Number((Math.atan2(2*(q[0]*q[1]+q[3]*q[2]),1-2*(Math.pow(q[1],2)+Math.pow(q[2],2)))).toFixed(5));
+  // console.log(sensor.quaternion);
+  let endPhi = Number((Phi*180/3.14159).toFixed(5));
+  map.style.transformOrigin = (thisLeft+28)+"px "+(thisTop+29.55)+"px";
+  // map.style.transformOrigin = thisLeft+"px "+thisTop+"px";
+  map.style.transform = "rotate("+endPhi+"deg)";
+  // console.log(endPhi);
+});
+sensor.addEventListener('error', error => {
+  if (event.error.name == 'NotReadableError') {
+    console.log("Sensor is not available.");
+  }
+});
+sensor.start();
 
 
 divConsole.log = (text,lineNumber="") => {
@@ -76,10 +117,10 @@ if ("geolocation" in navigator) {
     let lnDistance = GetDistance(baselat,baselot,baselat,crd.longitude);
     // let laDistance = getLineDistance(baselat,baselot,crd.latitude,baselot);
     // let lnDistance = getLineDistance(baselat,baselot,baselat,crd.longitude);
-    let lnDirection = Math.sign(crd.longitude-baselot);
-    let laDirection = Math.sign(crd.latitude-baselat);
-    let thisLeft = basetop + (lnDistance*lnDirection*rmRate - 260);
-    let thisTop = baseleft - (laDistance*laDirection*rmRate - 250);
+    let lnDirection = Math.sign(Number((crd.longitude-baselot).toFixed(8)));
+    let laDirection = Math.sign(Number((crd.latitude-baselat).toFixed(8)));
+    thisLeft = basetop + (lnDistance*lnDirection*rmRate - 260);
+    thisTop = baseleft - (laDistance*laDirection*rmRate - 250);
     myDot.style.left = thisLeft+"px";
     myDot.style.top = thisTop+"px";
   }, error, options);
