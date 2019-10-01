@@ -65,48 +65,6 @@ sensor.addEventListener('error', error => {
 });
 sensor.start();
 
-console.log = (message, ...rest) => {
-  divConsole.innerHTML += "[" + window.Date().slice(16, 24) + "] " + String(message + "</br>");
-  divLog.call(console, message, ...rest);
-  if (divConsole.scrollBy !== undefined) {
-    divConsole.scrollBy(0, 100);
-  }
-};
-console.error = (message, ...rest) => {
-  divConsole.innerHTML += "<em>[" + window.Date().slice(16, 24) + "] " + String(message + "</em></br>");
-  divError.call(console, message, ...rest);
-  if (divConsole.scrollBy !== undefined) {
-    divConsole.scrollBy(0, 100);
-  }
-};
-console.warn = (message, ...rest) => {
-  divConsole.innerHTML += "[" + window.Date().slice(16, 24) + "] " + String(message + "</br>");
-  divWarn.call(console, message, ...rest);
-  if (divConsole.scrollBy !== undefined) {
-    divConsole.scrollBy(0, 100);
-  }
-};
-
-// console.log = (text,lineNumber="") => {
-//     divConsole.innerHTML += "["+window.Date().slice(16,24)+"] "+"[ line: "+lineNumber+" ]" + String(text +"</br>");
-//     if (divConsole.scrollBy !== undefined) {
-//       divConsole.scrollBy(0,100);
-//     }
-// };
-// divConsole.error = (text) => {
-//   divConsole.innerHTML += "<em>["+window.Date().slice(16,24)+"] "+ String(text+"</em></br>");
-//   if (divConsole.scrollBy !== undefined) {
-//     divConsole.scrollBy(0,100);
-//   }
-// };
-divConsole.tag = (text) => {
-  divConsole.innerHTML += "<color-tag>[" + window.Date().slice(16, 24) + "] " + String(text + "</color-tag></br>");
-  if (divConsole.scrollBy !== undefined) {
-    divConsole.scrollBy(0, 100);
-  }
-};
-
-
 if ("geolocation" in navigator) {
   console.log("support geolocation!", 9);
 } else {
@@ -153,23 +111,6 @@ navigator.geolocation.watchPosition((pos) => {
 }, error, options);
 // startWatch();
 
-function stopWatch(id) {
-  navigator.geolocation.clearWatch(id);
-  watcherID = null;
-}
-function startWatch() {
-  if (watcherID !== null) {
-    console.log("已经在监控");
-    return;
-  } else {
-    let id = navigator.geolocation.watchPosition(success, error, options);
-    watcherID = id;
-  }
-}
-function setTag() {
-  let element = document.querySelector('#tagName');
-  divConsole.tag(element.value);
-}
 
 
 function rad(d) {

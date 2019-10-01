@@ -11,6 +11,14 @@
                 "$tsc-watch"
             ],
             "group": "build"
+        },
+        {
+            "type": "typescript",
+            "tsconfig": "tsconfig.json",
+            "problemMatcher": [
+                "$tsc"
+            ],
+            "group": "build"
         }
     ]
 }

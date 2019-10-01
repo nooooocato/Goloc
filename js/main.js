@@ -1,11 +1,4 @@
-var __spreadArrays = (this && this.__spreadArrays) || function () {
-    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
-    for (var r = Array(s), k = 0, i = 0; i < il; i++)
-        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-            r[k] = a[j];
-    return r;
-};
-define(["require", "exports", "./motion-sensors"], function (require, exports, motion_sensors_1) {
+define(["require", "exports", "./motion-sensors","./eruda"], function (require, exports, motion_sensors_1,eruda) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var watcherID = null;
@@ -71,57 +64,6 @@ define(["require", "exports", "./motion-sensors"], function (require, exports, m
         }
     });
     sensor.start();
-    console.log = function (message) {
-        var rest = [];
-        for (var _i = 1; _i < arguments.length; _i++) {
-            rest[_i - 1] = arguments[_i];
-        }
-        divConsole.innerHTML += "[" + window.Date().slice(16, 24) + "] " + String(message + "</br>");
-        divLog.call.apply(divLog, __spreadArrays([console, message], rest));
-        if (divConsole.scrollBy !== undefined) {
-            divConsole.scrollBy(0, 100);
-        }
-    };
-    console.error = function (message) {
-        var rest = [];
-        for (var _i = 1; _i < arguments.length; _i++) {
-            rest[_i - 1] = arguments[_i];
-        }
-        divConsole.innerHTML += "<em>[" + window.Date().slice(16, 24) + "] " + String(message + "</em></br>");
-        divError.call.apply(divError, __spreadArrays([console, message], rest));
-        if (divConsole.scrollBy !== undefined) {
-            divConsole.scrollBy(0, 100);
-        }
-    };
-    console.warn = function (message) {
-        var rest = [];
-        for (var _i = 1; _i < arguments.length; _i++) {
-            rest[_i - 1] = arguments[_i];
-        }
-        divConsole.innerHTML += "[" + window.Date().slice(16, 24) + "] " + String(message + "</br>");
-        divWarn.call.apply(divWarn, __spreadArrays([console, message], rest));
-        if (divConsole.scrollBy !== undefined) {
-            divConsole.scrollBy(0, 100);
-        }
-    };
-    // console.log = (text,lineNumber="") => {
-    //     divConsole.innerHTML += "["+window.Date().slice(16,24)+"] "+"[ line: "+lineNumber+" ]" + String(text +"</br>");
-    //     if (divConsole.scrollBy !== undefined) {
-    //       divConsole.scrollBy(0,100);
-    //     }
-    // };
-    // divConsole.error = (text) => {
-    //   divConsole.innerHTML += "<em>["+window.Date().slice(16,24)+"] "+ String(text+"</em></br>");
-    //   if (divConsole.scrollBy !== undefined) {
-    //     divConsole.scrollBy(0,100);
-    //   }
-    // };
-    divConsole.tag = function (text) {
-        divConsole.innerHTML += "<color-tag>[" + window.Date().slice(16, 24) + "] " + String(text + "</color-tag></br>");
-        if (divConsole.scrollBy !== undefined) {
-            divConsole.scrollBy(0, 100);
-        }
-    };
     if ("geolocation" in navigator) {
         console.log("support geolocation!", 9);
     }
@@ -164,24 +106,6 @@ define(["require", "exports", "./motion-sensors"], function (require, exports, m
         myDot.style.top = thisTop + "px";
     }, error, options);
     // startWatch();
-    function stopWatch(id) {
-        navigator.geolocation.clearWatch(id);
-        watcherID = null;
-    }
-    function startWatch() {
-        if (watcherID !== null) {
-            console.log("已经在监控");
-            return;
-        }
-        else {
-            var id = navigator.geolocation.watchPosition(success, error, options);
-            watcherID = id;
-        }
-    }
-    function setTag() {
-        var element = document.querySelector('#tagName');
-        divConsole.tag(element.value);
-    }
     function rad(d) {
         return d * Math.PI / 180.0;
     }
@@ -223,6 +147,7 @@ define(["require", "exports", "./motion-sensors"], function (require, exports, m
             myDot.style.top = thisTop + "px";
         }, error, options);
     }
+    eruda.init();
 });
 // console.log(GetDistance(baselat,baselot,sglat,sglot));
 // console.log(styleDistance(baseleft,basetop,sgleft,sgtop));
