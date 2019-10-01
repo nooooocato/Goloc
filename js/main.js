@@ -1,6 +1,7 @@
 define(["require", "exports", "./motion-sensors","./eruda"], function (require, exports, motion_sensors_1,eruda) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    eruda.init();
     var watcherID = null;
     var divConsole = document.querySelector('#console');
     var newGemDot = document.querySelector('#newGemDot');
@@ -147,7 +148,6 @@ define(["require", "exports", "./motion-sensors","./eruda"], function (require, 
             myDot.style.top = thisTop + "px";
         }, error, options);
     }
-    eruda.init();
 });
 // console.log(GetDistance(baselat,baselot,sglat,sglot));
 // console.log(styleDistance(baseleft,basetop,sgleft,sgtop));

@@ -12,7 +12,13 @@
             margin: 0;
             padding: 0;
         }
-
+        body{
+            height: 100%;
+            width: 100%;
+            top: 0;
+            /* overflow: hidden;
+            position: relative; */
+        }
         em {
             color: red;
         }
@@ -97,16 +103,23 @@
             border-right: transparent solid 5px;
             border-bottom: rgb(255, 110, 110) solid 7px;
         }
+        my-map{
+            display: block;
+            /* position: relative; */
+            /* overflow: hidden; */
+        }
     </style>
     <script data-main="js/main" src="./js/require.js"></script>
 </head>
 
 <body>
-    <div id="console"></div>
-    <img id="map" src="./test.svg" alt="">
-    <div id="newGemDot" data-lat="27.88293763" data-lot="112.8657118"></div>
-    <div id="southGatDot" data-lat="27.8804592" data-lot="112.8576616"></div>
-    <div id="myDot"></div>
+    <my-map>
+        <div id="console"></div>
+        <img id="map" src="./test.svg" alt="">
+        <div id="newGemDot" data-lat="27.88293763" data-lot="112.8657118"></div>
+        <div id="southGatDot" data-lat="27.8804592" data-lot="112.8576616"></div>
+        <div id="myDot"></div>
+    </my-map>
 </body>
 
 </html>
