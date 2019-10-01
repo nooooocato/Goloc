@@ -200,15 +200,15 @@ define(["require", "exports", "./motion-sensors"], function (require, exports, m
         return Math.sqrt(Math.pow((left1 - left2), 2) + Math.pow((top1 - top2), 2));
     }
     function getLineDistance(lat1, lng1, lat2, lng2) {
-        radLat1 = rad(lat1);
-        radLat2 = rad(lat2);
-        radlng1 = rad(lng1);
-        radlng2 = rad(lng2);
-        a = radLat2 - radLat1;
+        var radLat1 = rad(lat1);
+        var radLat2 = rad(lat2);
+        var radlng1 = rad(lng1);
+        var radlng2 = rad(lng2);
+        var a = radLat2 - radLat1;
         return Math.sqrt(2 * Math.pow(EARTH_RADIUS, 2) *
             (1 - Math.cos(radlng1) * Math.cos(radlng2) * Math.cos(a) - Math.sin(radlng1) * Math.sin(radlng2)));
     }
-    function reTry(params) {
+    function reTry() {
         navigator.geolocation.watchPosition(function (pos) {
             var crd = pos.coords;
             var laDistance = GetDistance(baselat, baselot, crd.latitude, baselot);
