@@ -8,29 +8,34 @@
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
     <style>
-        *{
+        * {
             margin: 0;
             padding: 0;
         }
-        em{
+
+        em {
             color: red;
         }
-        button{
+
+        button {
             width: 33%;
             height: 8vh;
         }
-        color-tag{
+
+        color-tag {
             color: white;
             background-color: coral;
         }
-        #tagName{
+
+        #tagName {
             width: 97%;
             height: 8vh;
             margin-top: 8vh;
             font-size: 8vmin;
             padding-left: 2vw;
         }
-        #console{
+
+        #console {
             position: absolute;
             overflow: auto;
             height: 80%;
@@ -39,14 +44,16 @@
             /* display: none; */
             z-index: 100;
         }
-        #map{
+
+        #map {
             position: absolute;
             top: -21px;
             left: -19px;
             width: 2000px;
             perspective-origin: center;
         }
-        #newGemDot{
+
+        #newGemDot {
             position: absolute;
             height: 30px;
             width: 30px;
@@ -55,7 +62,8 @@
             left: 1656px;
             top: 1915px;
         }
-        #southGatDot{
+
+        #southGatDot {
             position: absolute;
             height: 30px;
             width: 30px;
@@ -64,7 +72,8 @@
             left: 748px;
             top: 2215px;
         }
-        #myDot{
+
+        #myDot {
             position: absolute;
             height: 10px;
             width: 10px;
@@ -75,15 +84,29 @@
             border: 5px solid rgb(255, 255, 0);
             box-shadow: 0px 1px 3px 1.5px rgba(185, 169, 21, 0.821);
         }
+
+        #myDot::after {
+            content: "";
+            position: absolute;
+            /* background: red; */
+            top: -11px;
+            left: 0.5px;
+            height: 0;
+            width: 0;
+            border-left: transparent solid 5px;
+            border-right: transparent solid 5px;
+            border-bottom: rgb(255, 110, 110) solid 7px;
+        }
     </style>
-     <script data-main="js/main" src="./js/require.js"></script>
+    <script data-main="js/main" src="./js/require.js"></script>
 </head>
 
 <body>
     <div id="console"></div>
     <img id="map" src="./test.svg" alt="">
-    <div id="newGemDot" data-lat = "27.88293763" data-lot = "112.8657118"></div>
-    <div id="southGatDot" data-lat = "27.8804592" data-lot = "112.8576616"></div>
+    <div id="newGemDot" data-lat="27.88293763" data-lot="112.8657118"></div>
+    <div id="southGatDot" data-lat="27.8804592" data-lot="112.8576616"></div>
     <div id="myDot"></div>
 </body>
+
 </html>
