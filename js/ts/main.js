@@ -3,8 +3,8 @@ define(["require", "exports", "motion-sensors"], function (require, exports, mot
     exports.__esModule = true;
     eruda.init({
         container: document.querySelector('my-console'),
-        useShadowDom: false,
-      });
+        useShadowDom: false
+    });
     var watcherID = null;
     var divConsole = document.querySelector('#console');
     // function(message, source, lineno, colno, error) {

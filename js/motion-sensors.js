@@ -100,6 +100,7 @@ define(["require", "exports"], function (require, exports) {
         return EventTarget;
     }(exports.EventTargetMixin(Object)));
     exports.EventTarget = EventTarget;
+    ;
     function defineReadonlyProperties(target, slot, descriptions) {
         var propertyBag = target[slot] || (target[slot] = new WeakMap());
         var _loop_1 = function (property) {
@@ -298,6 +299,7 @@ define(["require", "exports"], function (require, exports) {
         }
         return SensorErrorEvent;
     }(Event));
+    ;
     function worldToScreen(quaternion) {
         return !quaternion ? null :
             rotateQuaternionByAxisAngle(quaternion, [0, 0, 1], -orientation.angle * Math.PI / 180);

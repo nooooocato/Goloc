@@ -1,6 +1,8 @@
-eruda.init();
+eruda.init({
+  container: document.querySelector('my-console'),
+  useShadowDom: false,
+});
 import {AbsoluteOrientationSensor} from 'motion-sensors';
-
 let watcherID: number | null = null;
 let divConsole = document.querySelector('#console');
 // function(message, source, lineno, colno, error) {
