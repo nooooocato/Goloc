@@ -20,7 +20,7 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
 };
 define(["require", "exports"], function (require, exports) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.__esModule = true;
     // @ts-check
     var slot = window["__sensor__"] = Symbol("__sensor__");
     var orientation = {};
@@ -125,7 +125,7 @@ define(["require", "exports"], function (require, exports) {
         ERROR: 0,
         IDLE: 1,
         ACTIVATING: 2,
-        ACTIVE: 3,
+        ACTIVE: 3
     };
     var Sensor = /** @class */ (function (_super) {
         __extends(Sensor, _super);

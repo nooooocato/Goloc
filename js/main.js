@@ -1,9 +1,12 @@
-define(["require", "exports", "./motion-sensors","./eruda"], function (require, exports, motion_sensors_1,eruda) {
+define(["require", "exports", "motion-sensors"], function (require, exports, motion_sensors_1) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    eruda.init();
+    exports.__esModule = true;
     var watcherID = null;
     var divConsole = document.querySelector('#console');
+    // function(message, source, lineno, colno, error) {
+    //   divConsole.innerHTML += 1;
+    //   divConsole.innerHTML += "["+window.Date().slice(16,24)+"] " + message +" | "+source+" | "+lineno+":"+colno+"<br>";
+    // }
     var newGemDot = document.querySelector('#newGemDot');
     var southGatDot = document.querySelector('#southGatDot');
     var map = document.querySelector('#map');

@@ -1,7 +1,11 @@
-import {AbsoluteOrientationSensor} from './motion-sensors';
+import {AbsoluteOrientationSensor} from 'motion-sensors';
 
 let watcherID: number | null = null;
 let divConsole = document.querySelector('#console');
+// function(message, source, lineno, colno, error) {
+//   divConsole.innerHTML += 1;
+//   divConsole.innerHTML += "["+window.Date().slice(16,24)+"] " + message +" | "+source+" | "+lineno+":"+colno+"<br>";
+// }
 let newGemDot = document.querySelector('#newGemDot');
 let southGatDot = document.querySelector('#southGatDot');
 let map = document.querySelector('#map');
