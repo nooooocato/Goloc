@@ -1,4 +1,4 @@
-define(["require", "exports", "motion-sensors","eruda"], function (require, exports, motion_sensors_1,eruda) {
+define(["require","eruda","exports", "motion-sensors"], function (require,eruda,exports, motion_sensors_1) {
     "use strict";
     eruda.init({
         container: document.querySelector("my-console"),
