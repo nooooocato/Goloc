@@ -1,12 +1,7 @@
-
-eruda.init({
-    container: document.querySelector("my-console"),
-    useShadowDom: false,
-    autoScale: true
-});
 define(["require", "exports", "motion-sensors"], function (require, exports, motion_sensors_1) {
     "use strict";
     exports.__esModule = true;
+    eruda.init();
     var watcherID = null;
     var divConsole = document.querySelector('#console');
     // function(message, source, lineno, colno, error) {
@@ -40,17 +35,17 @@ define(["require", "exports", "motion-sensors"], function (require, exports, mot
     var OrientationSensoroptions = { frequency: 60, referenceFrame: 'device' };
     var sensor = new motion_sensors_1.AbsoluteOrientationSensor(OrientationSensoroptions);
     Promise.all([navigator.permissions.query({ name: "accelerometer" }),
-    navigator.permissions.query({ name: "magnetometer" }),
-    navigator.permissions.query({ name: "gyroscope" }),
-    navigator.permissions.query({ name: "geolocation" })])
+        navigator.permissions.query({ name: "magnetometer" }),
+        navigator.permissions.query({ name: "gyroscope" }),
+        navigator.permissions.query({ name: "geolocation" })])
         .then(function (results) {
-            if (results.every(function (result) { return result.state === "granted"; })) {
-                sensor.start();
-            }
-            else {
-                console.log("No permissions to use AbsoluteOrientationSensor.");
-            }
-        });
+        if (results.every(function (result) { return result.state === "granted"; })) {
+            sensor.start();
+        }
+        else {
+            console.log("No permissions to use AbsoluteOrientationSensor.");
+        }
+    });
     sensor.addEventListener('reading', function () {
         // model is a Three.js object instantiated elsewhere.
         // model.quaternion.fromArray(sensor.quaternion).inverse();

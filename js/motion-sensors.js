@@ -100,9 +100,8 @@ define(["require", "exports"], function (require, exports) {
         return EventTarget;
     }(exports.EventTargetMixin(Object)));
     exports.EventTarget = EventTarget;
-    ;
     function defineReadonlyProperties(target, slot, descriptions) {
-        var propertyBag = target[slot] || (target[slot] = new WeakMap);
+        var propertyBag = target[slot] || (target[slot] = new WeakMap());
         var _loop_1 = function (property) {
             propertyBag[property] = descriptions[property];
             Object.defineProperty(target, property, {
@@ -131,7 +130,7 @@ define(["require", "exports"], function (require, exports) {
         __extends(Sensor, _super);
         function Sensor(options) {
             var _this = _super.call(this) || this;
-            _this[slot] = new WeakMap;
+            _this[slot] = new WeakMap();
             defineOnEventListener(_this, "reading");
             defineOnEventListener(_this, "activate");
             defineOnEventListener(_this, "error");
@@ -299,7 +298,6 @@ define(["require", "exports"], function (require, exports) {
         }
         return SensorErrorEvent;
     }(Event));
-    ;
     function worldToScreen(quaternion) {
         return !quaternion ? null :
             rotateQuaternionByAxisAngle(quaternion, [0, 0, 1], -orientation.angle * Math.PI / 180);

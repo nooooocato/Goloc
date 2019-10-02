@@ -62,7 +62,7 @@ export const EventTargetMixin = (superclass, ...eventNames) => class extends sup
 export class EventTarget extends EventTargetMixin(Object) {};
 
 function defineReadonlyProperties(target, slot, descriptions) {
-  const propertyBag = target[slot] || (target[slot] = new WeakMap);
+  const propertyBag = target[slot] || (target[slot] = new WeakMap());
   for (const property in descriptions) {
     propertyBag[property] = descriptions[property];
     Object.defineProperty(target, property, {
@@ -90,7 +90,7 @@ const SensorState = {
 export class Sensor extends EventTarget {
   constructor(options) {
     super();
-    this[slot] = new WeakMap;
+    this[slot] = new WeakMap();
 
     defineOnEventListener(this, "reading");
     defineOnEventListener(this, "activate");

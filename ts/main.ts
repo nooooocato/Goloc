@@ -1,3 +1,4 @@
+eruda.init();
 import {AbsoluteOrientationSensor} from 'motion-sensors';
 
 let watcherID: number | null = null;
