@@ -16,8 +16,8 @@
             height: 100%;
             width: 100%;
             top: 0;
-            /* overflow: hidden;
-            position: relative; */
+            /* overflow: hidden; */
+            position: relative;
         }
         em {
             color: red;
@@ -105,14 +105,24 @@
         }
         my-map{
             display: block;
-            /* position: relative; */
+            position: absolute;
             /* overflow: hidden; */
+        }
+        my-console{
+            display: block;
+            position: relative !important;
+            height: 100vh !important;
+            width: 100vw !important;
+            overflow: hidden !important;
         }
     </style>
     <script data-main="js/main" src="./js/require.js"></script>
 </head>
 
 <body>
+    <my-console>
+
+    </my-console>
     <my-map>
         <!-- <div id="console"></div> -->
         <img id="map" src="./test.svg" alt="">
