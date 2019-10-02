@@ -2,7 +2,7 @@ eruda.init({
   container: document.querySelector('my-console'),
   useShadowDom: false,
 });
-// import {AbsoluteOrientationSensor} from 'motion-sensors';
+
 let watcherID: number | null = null;
 let divConsole = document.querySelector('#console');
 // function(message, source, lineno, colno, error) {
@@ -165,7 +165,19 @@ function reTry() {
     myDot.style.top = thisTop + "px";
   }, error, options);
 }
-
+window.addEventListener("deviceorientation", function(event) {
+  // alpha: rotation around z-axis
+  var rotateDegrees = event.alpha;
+  // gamma: left to right
+  var leftToRight = event.gamma;
+  // beta: front back motion
+  var frontToBack = event.beta;
+  rotateDegrees = Number(rotateDegrees.toFixed(4));
+  // console.log(rotateDegrees);
+  map.style.transformOrigin = (thisLeft + 28) + "px " + (thisTop + 29.55) + "px";
+  map.style.transform = "rotate(" + rotateDegrees + "deg)";
+  
+}, true);
 
 // console.log(GetDistance(baselat,baselot,sglat,sglot));
 // console.log(styleDistance(baseleft,basetop,sgleft,sgtop));
