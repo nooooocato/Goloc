@@ -4,7 +4,7 @@ eruda.init({
 });
 
 let watcherID: number | null = null;
-let divConsole = document.querySelector('#console');
+// let divConsole = document.querySelector('#console');
 // function(message, source, lineno, colno, error) {
 //   divConsole.innerHTML += 1;
 //   divConsole.innerHTML += "["+window.Date().slice(16,24)+"] " + message +" | "+source+" | "+lineno+":"+colno+"<br>";
@@ -14,7 +14,6 @@ let southGatDot = document.querySelector('#southGatDot');
 let map = document.querySelector('#map');
 let myDot = document.querySelector('#myDot');
 let rmRate = 1.1400682183346926;
-let lmRate = 1.0595483446253406;
 let baselat = newGemDot.getAttribute("data-lat");
 let baselot = newGemDot.getAttribute("data-lot");
 let basetop = 1915;
@@ -23,16 +22,11 @@ let sgtop = 2215;
 let sgleft = 748;
 let sglat = southGatDot.getAttribute("data-lat");
 let sglot = southGatDot.getAttribute("data-lot");
-let latcha;
-let lotcha;
 let EARTH_RADIUS = 6378137;
 let myquaternion = [];
 let thisLeft = 0;
 let thisTop = 0;
 
-let divLog = console.log;
-let divError = console.error;
-let divWarn = console.warn;
 
 // // 初始化方向传感器
 // const OrientationSensoroptions = { frequency: 60, referenceFrame: 'device' };
@@ -71,14 +65,16 @@ let divWarn = console.warn;
 //   }
 // });
 // sensor.start();
-
+function isSafari() {
+  return /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
+}
 if ("geolocation" in navigator) {
-  console.log("support geolocation!", 9);
+  console.log("support geolocation!");
 } else {
-  console.log("not support geolocation!", 11);
+  console.log("not support geolocation!");
 }
 
-var options = {
+let options = {
   enableHighAccuracy: true,
   timeout: 5000,
   maximumAge: 0
@@ -165,6 +161,7 @@ function reTry() {
     myDot.style.top = thisTop + "px";
   }, error, options);
 }
+
 window.addEventListener("deviceorientation", function(event) {
   // alpha: rotation around z-axis
   var rotateDegrees = event.alpha;
