@@ -171,8 +171,8 @@ if (!!window.ondeviceorientationabsolute) {
     });
 }
 else if (isSafari()) {
-    window.addEventListener("webkitCompassHeading", function (event) {
-        var rotateDegrees = event.alpha;
+    window.addEventListener("deviceorientation", function (event) {
+        var rotateDegrees = event.webkitCompassHeading;
         console.log(event);
         var leftToRight = event.gamma;
         var frontToBack = event.beta;
