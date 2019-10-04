@@ -108,8 +108,9 @@ navigator.geolocation.watchPosition((pos) => {
   let lnDistance = GetDistance(baselat, baselot, baselat, crd.longitude);
   // let laDistance = getLineDistance(baselat,baselot,crd.latitude,baselot);
   // let lnDistance = getLineDistance(baselat,baselot,baselat,crd.longitude);
-  let lnDirection = Math.sign(Number((crd.longitude - baselot).toFixed(8)));
-  let laDirection = Math.sign(Number((crd.latitude - baselat).toFixed(8)));
+  let lnDirection = Math.sign((crd.longitude - baselot));
+  let laDirection = Math.sign((crd.latitude - baselat));
+  
   thisLeft = basetop + (lnDistance * lnDirection * rmRate - 260);
   thisTop = baseleft - (laDistance * laDirection * rmRate - 250);
   myDot.style.left = thisLeft + "px";
@@ -130,8 +131,10 @@ function GetDistance(lat1: number, lng1: number, lat2: number, lng2: number) {
   let b = rad(lng1) - rad(lng2);
   let s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a / 2), 2) +
     Math.cos(radLat1) * Math.cos(radLat2) * Math.pow(Math.sin(b / 2), 2)));
+  s = Number(s.toFixed(5));
   s = s * EARTH_RADIUS;
   s = Math.round(s * 10000) / 10000;
+  s = Number(s.toFixed(5));
   return s;
 }
 
@@ -165,7 +168,7 @@ function reTry() {
   }, error, options);
 }
 // deviceorientationabsolute
-if(!window.ondeviceorientationabsolute){
+if(!!window.ondeviceorientationabsolute){
   window.addEventListener("deviceorientationabsolute", function(event) {
     // console.log(event);
     // alpha: rotation around z-axis
@@ -193,8 +196,9 @@ if (isFirefox()) {
   });
 }
 if (isSafari()) {
-  window.addEventListener("deviceorientation", function(event) {
-    let rotateDegrees = event.webkitCompassHeading;
+  window.addEventListener("webkitCompassHeading", function(event) {
+    let rotateDegrees = event.alpha;
+    console.log(event);
     let leftToRight = event.gamma;
     let frontToBack = event.beta;
     rotateDegrees = Number(rotateDegrees.toFixed(4));
@@ -202,6 +206,17 @@ if (isSafari()) {
     map.style.transformOrigin = (thisLeft + 28) + "px " + (thisTop + 29.55) + "px";
     map.style.transform = "rotate(" + rotateDegrees + "deg)";
   })
+}
+if (/Device\/Apple/.test(navigator.userAgent)) {
+  window.addEventListener("deviceorientation", function(event) {
+    console.log("yesd");
+  });
+  window.addEventListener("webkitCompassHeading", function(event) {
+    console.log("yeswebki");
+  });
+  window.addEventListener("deviceorientationabsolute", function(event) {
+    console.log("yesab");
+  });
 }
 // console.log(GetDistance(baselat,baselot,sglat,sglot));
 // console.log(styleDistance(baseleft,basetop,sgleft,sgtop));
