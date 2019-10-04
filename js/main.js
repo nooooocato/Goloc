@@ -66,6 +66,9 @@ var thisTop = 0;
 function isSafari() {
     return /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
 }
+function isFirefox() {
+    return /Firefox/.test(navigator.userAgent);
+}
 if ("geolocation" in navigator) {
     console.log("support geolocation!");
 }
@@ -91,11 +94,11 @@ function error(err) {
 navigator.geolocation.getCurrentPosition(success, error, options);
 navigator.geolocation.watchPosition(function (pos) {
     var crd = pos.coords;
-    console.log("");
-    console.log('你的位置 :');
-    console.log('纬度 : ' + crd.latitude);
-    console.log('经度 : ' + crd.longitude);
-    console.log('误差 : ±' + crd.accuracy + ' 米.');
+    // console.log("");
+    // console.log('你的位置 :');
+    // console.log('纬度 : ' + crd.latitude);
+    // console.log('经度 : ' + crd.longitude);
+    // console.log('误差 : ±' + crd.accuracy + ' 米.');
     var laDistance = GetDistance(baselat, baselot, crd.latitude, baselot);
     var lnDistance = GetDistance(baselat, baselot, baselat, crd.longitude);
     // let laDistance = getLineDistance(baselat,baselot,crd.latitude,baselot);
@@ -149,18 +152,44 @@ function reTry() {
         myDot.style.top = thisTop + "px";
     }, error, options);
 }
-window.addEventListener("deviceorientation", function (event) {
-    // alpha: rotation around z-axis
-    var rotateDegrees = event.alpha;
-    // gamma: left to right
-    var leftToRight = event.gamma;
-    // beta: front back motion
-    var frontToBack = event.beta;
-    rotateDegrees = Number(rotateDegrees.toFixed(4));
-    // console.log(rotateDegrees);
-    map.style.transformOrigin = (thisLeft + 28) + "px " + (thisTop + 29.55) + "px";
-    map.style.transform = "rotate(" + rotateDegrees + "deg)";
-}, true);
+// deviceorientationabsolute
+if (!window.ondeviceorientationabsolute) {
+    window.addEventListener("deviceorientationabsolute", function (event) {
+        // console.log(event);
+        // alpha: rotation around z-axis
+        var rotateDegrees = event.alpha;
+        // gamma: left to right
+        var leftToRight = event.gamma;
+        // beta: front back motion
+        var frontToBack = event.beta;
+        rotateDegrees = Number(rotateDegrees.toFixed(4));
+        // console.log(rotateDegrees);
+        map.style.transformOrigin = (thisLeft + 28) + "px " + (thisTop + 29.55) + "px";
+        map.style.transform = "rotate(" + rotateDegrees + "deg)";
+    });
+}
+if (isFirefox()) {
+    window.addEventListener("deviceorientation", function (event) {
+        var rotateDegrees = event.alpha;
+        var leftToRight = event.gamma;
+        var frontToBack = event.beta;
+        rotateDegrees = Number(rotateDegrees.toFixed(4));
+        // console.log(rotateDegrees);
+        map.style.transformOrigin = (thisLeft + 28) + "px " + (thisTop + 29.55) + "px";
+        map.style.transform = "rotate(" + rotateDegrees + "deg)";
+    });
+}
+if (isSafari()) {
+    window.addEventListener("deviceorientation", function (event) {
+        var rotateDegrees = event.webkitCompassHeading;
+        var leftToRight = event.gamma;
+        var frontToBack = event.beta;
+        rotateDegrees = Number(rotateDegrees.toFixed(4));
+        // console.log(rotateDegrees);
+        map.style.transformOrigin = (thisLeft + 28) + "px " + (thisTop + 29.55) + "px";
+        map.style.transform = "rotate(" + rotateDegrees + "deg)";
+    });
+}
 // console.log(GetDistance(baselat,baselot,sglat,sglot));
 // console.log(styleDistance(baseleft,basetop,sgleft,sgtop));
 // console.log(styleDistance(baseleft,basetop,sgleft,sgtop)/GetDistance(baselat,baselot,sglat,sglot));
