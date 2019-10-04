@@ -170,18 +170,7 @@ if (!!window.ondeviceorientationabsolute) {
         map.style.transform = "rotate(" + rotateDegrees + "deg)";
     });
 }
-if (isFirefox()) {
-    window.addEventListener("deviceorientation", function (event) {
-        var rotateDegrees = event.alpha;
-        var leftToRight = event.gamma;
-        var frontToBack = event.beta;
-        rotateDegrees = Number(rotateDegrees.toFixed(4));
-        // console.log(rotateDegrees);
-        map.style.transformOrigin = (thisLeft + 28) + "px " + (thisTop + 29.55) + "px";
-        map.style.transform = "rotate(" + rotateDegrees + "deg)";
-    });
-}
-if (isSafari()) {
+else if (isSafari()) {
     window.addEventListener("webkitCompassHeading", function (event) {
         var rotateDegrees = event.alpha;
         console.log(event);
@@ -193,15 +182,15 @@ if (isSafari()) {
         map.style.transform = "rotate(" + rotateDegrees + "deg)";
     });
 }
-if (/Device\/Apple/.test(navigator.userAgent)) {
+else {
     window.addEventListener("deviceorientation", function (event) {
-        console.log("yesd");
-    });
-    window.addEventListener("webkitCompassHeading", function (event) {
-        console.log("yeswebki");
-    });
-    window.addEventListener("deviceorientationabsolute", function (event) {
-        console.log("yesab");
+        var rotateDegrees = event.alpha;
+        var leftToRight = event.gamma;
+        var frontToBack = event.beta;
+        rotateDegrees = Number(rotateDegrees.toFixed(4));
+        // console.log(rotateDegrees);
+        map.style.transformOrigin = (thisLeft + 28) + "px " + (thisTop + 29.55) + "px";
+        map.style.transform = "rotate(" + rotateDegrees + "deg)";
     });
 }
 // console.log(GetDistance(baselat,baselot,sglat,sglot));
