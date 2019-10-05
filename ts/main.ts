@@ -168,7 +168,7 @@ function reTry() {
   }, error, options);
 }
 // deviceorientationabsolute
-if(!!window.ondeviceorientationabsolute){
+if("ondeviceorientationabsolute" in window){
   window.addEventListener("deviceorientationabsolute", function(event) {
     // console.log(event);
     // alpha: rotation around z-axis
@@ -195,15 +195,19 @@ if(!!window.ondeviceorientationabsolute){
     map.style.transform = "rotate(" + rotateDegrees + "deg)";
   })
 }else{
-  window.addEventListener("deviceorientation", function(event) {
-    let rotateDegrees = event.alpha;
-    let leftToRight = event.gamma;
-    let frontToBack = event.beta;
-    rotateDegrees = Number(rotateDegrees.toFixed(4));
-    // console.log(rotateDegrees);
-    map.style.transformOrigin = (thisLeft + 28) + "px " + (thisTop + 29.55) + "px";
-    map.style.transform = "rotate(" + rotateDegrees + "deg)";
-  });
+  if (!window.ondeviceorientation) {
+      console.log("设备不支持指南功能！");
+  }else{
+    window.addEventListener("deviceorientation", function(event) {
+      let rotateDegrees = event.alpha;
+      let leftToRight = event.gamma;
+      let frontToBack = event.beta;
+      rotateDegrees = Number(rotateDegrees.toFixed(4));
+      // console.log(rotateDegrees);
+      map.style.transformOrigin = (thisLeft + 28) + "px " + (thisTop + 29.55) + "px";
+      map.style.transform = "rotate(" + rotateDegrees + "deg)";
+    });
+  }
 }
 
 // console.log(GetDistance(baselat,baselot,sglat,sglot));
