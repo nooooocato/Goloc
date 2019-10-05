@@ -169,6 +169,8 @@ function reTry() {
 }
 // deviceorientationabsolute
 if("ondeviceorientationabsolute" in window){
+  console.log(1);
+  
   window.addEventListener("deviceorientationabsolute", function(event) {
     // console.log(event);
     // alpha: rotation around z-axis
@@ -184,6 +186,7 @@ if("ondeviceorientationabsolute" in window){
     
   });
 }else if (isSafari()) {
+  console.log(2);
   window.addEventListener("deviceorientation", function(event) {
     let rotateDegrees = event.webkitCompassHeading;
     console.log(event);
@@ -196,8 +199,10 @@ if("ondeviceorientationabsolute" in window){
   })
 }else{
   if (!window.ondeviceorientation) {
+    console.log(3);
       console.log("设备不支持指南功能！");
   }else{
+    console.log(4);
     window.addEventListener("deviceorientation", function(event) {
       let rotateDegrees = event.alpha;
       let leftToRight = event.gamma;
